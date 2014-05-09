@@ -4,7 +4,7 @@ InternetProgrammingProject3
 Internet Programming Project 3
 
 
-We are building up a mobile mahs-up site using geolocation and Open APIs.
+We are building up a mobile mash-up site using geolocation and Open APIs.
 
 Topic: _Not specified yet_
 
