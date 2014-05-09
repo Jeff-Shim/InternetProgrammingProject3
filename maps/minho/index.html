@@ -13,19 +13,39 @@
 		</style>
 		<script>
 			function initialize() {
-				var myLatlng = new google.maps.LatLng(-25.363882, 131.044922);
+				var myLatlng = new google.maps.LatLng(37.5637, 126.9365037);
+				var initialLocation;
 				var mapOptions = {
-					zoom : 8,
+					zoom : 10,
 					center : myLatlng
 				};
 
 				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-				var marker = new google.maps.Marker({
-					position : myLatlng,
-					map : map,
-					title : "Hello World!"
-				});
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position) {
+						// When user allowed to send their location
+						initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+						map.setCenter(initialLocation);
+						map.setZoom(14);
+
+						var marker = new google.maps.Marker({
+							position : initialLocation,
+							map : map,
+							title : "Hello World!"
+						});
+
+						var infowindow = new google.maps.InfoWindow({
+							content : initialLocation.toString()
+						});
+
+						google.maps.event.addListener(marker, 'click', function() {
+							infowindow.open(map, marker);
+						});
+					});
+
+				}
+
 			}
 
 			function loadScript() {
