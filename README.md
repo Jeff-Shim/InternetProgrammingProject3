@@ -6,6 +6,6 @@ Internet Programming Project 3
 
 We are building up a mobile mash-up site using geolocation and Open APIs.
 
-Topic: _Not specified yet_
+Topic: Local News written by general users.
 
-Site Title: _Not specified yet_
+Site Title: EyeCast
