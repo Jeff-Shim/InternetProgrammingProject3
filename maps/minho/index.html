@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html><!--heelo-->
+<html>
+	<!--heelo-->
 	<head>
 		<title>EyeCast</title>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -12,12 +13,16 @@
             }
 		</style>
 		<script>
+			/**********************
+			 * Google Maps Scripts *
+			 ***********************/
 			function initialize() {
 				var myLatlng = new google.maps.LatLng(37.5637, 126.9365037);
 				var initialLocation;
 				var mapOptions = {
-					zoom : 10,
-					center : myLatlng
+					zoom : 11,
+					center : myLatlng,
+					disableDefaultUI : true
 				};
 
 				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -46,6 +51,72 @@
 
 				}
 
+				/*
+				 // Create the DIV to hold the control and
+				 // call the HomeControl() constructor passing
+				 // in this DIV.
+				 var homeControlDiv = document.createElement('div');
+				 var homeControl = new HomeControl(homeControlDiv, map);
+
+				 homeControlDiv.index = 1;
+				 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);*/
+
+			}
+
+			/**
+			 * The HomeControl adds a control to the map that simply
+			 * returns the user to Chicago. This constructor takes
+			 * the control DIV as an argument.
+			 * @constructor
+			 */
+			/*
+			 function HomeControl(controlDiv, map) {
+
+			 // Set CSS styles for the DIV containing the control
+			 // Setting padding to 5 px will offset the control
+			 // from the edge of the map
+			 controlDiv.style.padding = '15px';
+			 controlDiv.setAttribute("id", "controlDiv");
+
+			 // Set CSS for the control border
+			 var controlUI = document.createElement('div');
+			 controlUI.setAttribute("id", "signInButton");
+			 controlUI.style.backgroundColor = '#4285f4';
+			 controlUI.style.borderStyle = 'solid';
+			 controlUI.style.borderWidth = '0px';
+			 controlUI.style.borderRadius = '2pt';
+			 controlUI.style.cursor = 'pointer';
+			 controlUI.style.textAlign = 'center';
+			 controlUI.title = 'Click to sign in';
+			 controlDiv.appendChild(controlUI);
+
+			 // Set CSS for the control interior
+			 var controlText = document.createElement('div');
+			 controlText.setAttribute("id", "signInText");
+			 controlText.style.fontFamily = 'Arial,sans-serif';
+			 controlText.style.fontSize = '14px';
+			 controlText.style.color = 'white';
+			 controlText.style.paddingLeft = '12px';
+			 controlText.style.paddingRight = '12px';
+			 controlText.style.paddingTop = '7px';
+			 controlText.style.paddingBottom = '7px';
+			 controlText.innerHTML = '<b>Sign in</b>';
+			 controlUI.appendChild(controlText);
+
+			 // Setup the click event listeners
+			 google.maps.event.addDomListener(controlUI, 'click', function() {
+
+			 });
+
+			 }*/
+
+			function facebookLogin() {
+				FB.login(function(response) {
+					var fbname;
+					var accessToken = response.authResponse.accessToken;
+				}, {
+					scope : 'publish_stream'
+				});
 			}
 
 			function loadScript() {
@@ -53,6 +124,112 @@
 				script.type = 'text/javascript';
 				script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' + 'callback=initialize';
 				document.body.appendChild(script);
+				document.getElementById("controlDiv").style.display = 'block';
+			}
+
+			/***************************
+			 * Facebook Sign in Scripts *
+			 ****************************/
+			// This is called with the results from from FB.getLoginStatus().
+			function statusChangeCallback(response) {
+				console.log('statusChangeCallback');
+				console.log(response);
+				// The response object is returned with a status field that lets the
+				// app know the current login status of the person.
+				// Full docs on the response object can be found in the documentation
+				// for FB.getLoginStatus().s
+				if (response.status === 'connected') {
+					// Logged into your app and Facebook.
+					afterFBLogin();
+				} else if (response.status === 'not_authorized') {
+					// The person is logged into Facebook, but not your app.
+					//document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+				} else {
+					// The person is not logged into Facebook, so we're not sure if
+					// they are logged into this app or not.
+					//document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+				}
+			}
+
+			// This function is called when someone finishes with the Login
+			// Button.  See the onlogin handler attached to it in the sample
+			// code below.
+			function checkLoginState() {
+				FB.getLoginStatus(function(response) {
+					statusChangeCallback(response);
+				});
+			}
+
+
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId : '664834296899835',
+					cookie : true, // enable cookies to allow the server to access
+					// the session
+					xfbml : true, // parse social plugins on this page
+					version : 'v2.0' // use version 2.0
+				});
+
+				// Now that we've initialized the JavaScript SDK, we call
+				// FB.getLoginStatus().  This function gets the state of the
+				// person visiting this page and can return one of three states to
+				// the callback you provide.  They can be:
+				//
+				// 1. Logged into your app ('connected')
+				// 2. Logged into Facebook, but not your app ('not_authorized')
+				// 3. Not logged into Facebook and can't tell if they are logged into
+				//    your app or not.
+				//
+				// These three cases are handled in the callback function.
+
+				FB.getLoginStatus(function(response) {
+					statusChangeCallback(response);
+				});
+
+				FB.Event.subscribe('auth.login', function(response) {
+					document.location.reload();
+				});
+
+			};
+
+			// Load the SDK asynchronously
+			( function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id))
+						return;
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//connect.facebook.net/en_US/sdk.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+
+			// Here we run a very simple test of the Graph API after login is
+			// successful.  See statusChangeCallback() for when this call is made.
+			function afterFBLogin() {
+				//window.alert('hello');
+				//document.getElementById("signInText").innerHTML = 'Sign Out';
+
+				//controlDiv.removeChild(controlUI);
+
+				console.log('Welcome!  Fetching your information.... ');
+				FB.api('/me', function(response) {
+					console.log('Successful login for: ' + response.name);
+					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+					document.getElementById("signInButton").style.display = 'none';
+					if (response) {
+						var image = document.getElementById('userImage');
+						image.src = 'http://graph.facebook.com/' + response.id + '/picture';
+						/*
+						 var name = document.getElementById('name');
+						 name.innerHTML = response.name
+						 var id = document.getElementById('id');
+						 id.innerHTML = response.id*/
+
+					}
+
+				});
+				//var controlDiv = document.getElementById("controlDiv");
+
 			}
 
 
@@ -62,5 +239,13 @@
 	</head>
 	<body>
 		<div id="map-canvas"></div>
+		<div id="controlDiv" style="display: none; padding: 15px; z-index: 0; position: absolute; right: 0px; top: 0px;">
+			<div id="signInButton" onclick="facebookLogin()" title="Click to sign in" style="background-color: rgb(66, 133, 244); border-style: solid; border-width: 0px; border-top-left-radius: 2pt; border-top-right-radius: 2pt; border-bottom-right-radius: 2pt; border-bottom-left-radius: 2pt; cursor: pointer; text-align: center;">
+				<div id="signInText" style="font-family: Arial, sans-serif; font-size: 14px; color: white; padding: 7px 12px;">
+					<b>Sign in</b>
+				</div>
+			</div>
+			<img id="userImage"/>
+		</div>
 	</body>
 </html>
