@@ -1,7 +1,7 @@
 <?php
 
-	mysql_connect ("","","") or die (mysql_error());
-	mysql_select_db ("") or die (mysql_error());
+	mysql_connect ("eyecast.tk","a7229328_eyecast","qlalf1234") or die (mysql_error());
+	mysql_select_db ("a7229328_eyecast") or die (mysql_error());
 	
 	
 	if($_POST['submit'])
@@ -24,10 +24,10 @@
 		$title = $_POST['title'];
 		$content = $_POST['content'];
 	    // add location, date, author's name and id
-		//$loc = $_POST[''];
-		//$date = $_POST[''];
-		//$userName = $_POST[''];
-		//$userId = $_POST['']; // used for uploading user's profile image
+		$loc = $_POST['location'];
+		$date = $_POST['date'];
+		$userName = $_POST['userName'];
+		$userId = $_POST['userId']; // used for uploading user's profile image
 		
 	}	
 	else
