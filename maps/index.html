@@ -22,26 +22,10 @@
 				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 				var marker = new google.maps.Marker({
-                	position: myLatlng,
-                	map: map,
-               		title: "Hello World!"
-               		
-           		});
-           		
-           		marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-           		marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-
-				
-				var infowindow = new google.maps.InfoWindow( { 
-            		content: "<h1>Hello World!</h1>", 
-            		maxWidth: 3000
-          		}); 
-
-				google.maps.event.addListener(marker, 'click', function() { 
- 					infowindow.open(map, marker); 
+					position : myLatlng,
+					map : map,
+					title : "Hello World!"
 				});
-				
-				
 			}
 
 			function loadScript() {
@@ -50,19 +34,13 @@
 				script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' + 'callback=initialize';
 				document.body.appendChild(script);
 			}
-	 
+
 
 			window.onload = loadScript;
 
 		</script>
 	</head>
 	<body>
-<<<<<<< HEAD
-		<h1>Hello, World!</h1>
-		Check if this git works!
-		really works!!
-=======
 		<div id="map-canvas"></div>
->>>>>>> b619af359f881ab9be5a668d3157917bab6c02f6
 	</body>
 </html>
