@@ -6,20 +6,19 @@
 	
 	if($_POST['submit'])
 	{
-		// photo variables
-		$name = $_FILES['upload']['name'];
-		$temp = $_FILES['upload']['tmp_name'];
-		$type = $_FILES['upload']['type'];
-		$size = $_FILES['upload']['size'];
 		
 		if(!isset($file))
-		echo "사진을 선택해 주세요! ";
+		{
+			echo "사진을 선택해 주세요! ";
+		}	
+		else	
+		{
+		// photo variables
+		$image_name = addslashes($_FILES['upload']['name']); // put add slashes for the protection from mysql crash
+		$image = addslashes(file_get_contents($_FILES['upload']['tmp_name'])); // get an image
+		$type = $_FILES['upload']['type'];
 		
-		if ($size > 10000)
-		echo "사진이 너무 큽니다! ";
-		
-		
-		
+			
 		// add other elements such as title and contents
 		$title = $_POST['title'];
 		$content = $_POST['content'];
@@ -28,6 +27,39 @@
 		$date = $_POST['date'];
 		$userName = $_POST['userName'];
 		$userId = $_POST['userId']; // used for uploading user's profile image
+		
+		$image_size = getimagesize($_FILES['upload']['size']);
+		
+		if ($image_size > 100000)
+		echo "사진이 너무 큽니다! ";
+		
+		
+		if($image_size == FALSE)
+		{
+		echo "사진파일 이어야 합니다.";
+		}
+		else
+		{
+			// insert data to db and checks if all elements exist
+			if(!$insert = mysql_query("INSERT INTO store VALUES ('','$image_name','$_image_size','','','','','','','','')")) // INSERT 10 + 1 ELEMENTS, FIRST ELEMENT = ID 
+			{
+				echo "Problem uploading image";
+			}
+			else
+			 {
+			
+				$lastid = mysql_insert_id(); 	
+			}
+			
+			
+		}
+		
+		
+	
+		
+		}
+		
+		
 		
 	}	
 	else
