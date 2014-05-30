@@ -42,9 +42,12 @@ function previewImage(targetObj, View_area) {
 			img.id = "prev_" + View_area;
 			img.classList.add("obj");
 			img.file = file;
-			img.style.width = '88%'; 
-			img.style.margin = '0 20px 10px 20px';
-			img.style.border = '1px solid rgb(220, 220, 220)';
+			img.style["max-width"] = '99%'; 
+			img.style.margin = '0 0 10px 0';
+			img.style["-webkit-filter"] = 'drop-shadow(3px 3px 3px rgba(0,0,0,0.5))';
+			img.style["filter"] =  'url(shadow.svg#drop-shadow)';
+    		img.style["-ms-filter"] =  "progid:DXImageTransform.Microsoft.Dropshadow(OffX=3, OffY=3, Color='#444')";
+   		 	img.style["filter"] = "progid:DXImageTransform.Microsoft.Dropshadow(OffX=3, OffY=3, Color='#444')";
 			preview.appendChild(img);
 			if (window.FileReader) { // FireFox, Chrome, Opera 확인.
 				var reader = new FileReader();
