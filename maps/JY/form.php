@@ -42,14 +42,15 @@
 		else
 		{
 			// insert data to db and checks if all elements exist
-			if(!$insert = mysql_query("INSERT INTO database VALUES ('','$image_name','$image_size','$title','$content','$locationLat','$locationLng','$date','$userId')")) // INSERT 8 + 1 ELEMENTS, FIRST ELEMENT = ID 
+			if(!$insert = mysql_query("INSERT INTO database VALUES ('','$image_name','$image_size','$title','$content','$locationLat','$locationLng','$date','$us')")) // INSERT 8 + 1 ELEMENTS, FIRST ELEMENT = ID 
 			{
 				echo "Problem uploading image";
 			}
 			else
 			 {
 			
-				$lastid = mysql_insert_id(); 	
+				$lastid = mysql_insert_id(); 
+				header("Location:index.html");	
 			}
 			
 			
