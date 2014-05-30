@@ -87,6 +87,7 @@ h1
 	color : white;
 	font-size : 2em;
 	text-border : 0;
+	line-height: 40px;
 }
 
 h1 a
