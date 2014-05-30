@@ -1,6 +1,6 @@
 <?php
 
-	mysql_connect ("eyecast.tk","a7229328_eyecast","qlalf1234") or die (mysql_error());
+	mysql_connect ("mysql7.000webhost.com","a7229328_eyecast","qlalf1234") or die (mysql_error());
 	mysql_select_db ("a7229328_eyecast") or die (mysql_error());
 	
 	
