@@ -14,4 +14,5 @@
 	
 	// if you would like to retrieve the image that you want inside the other documents,
 	// <img src = getPhoto.php?id= (whatever number) > <-echo this statement
+	echo  $image;
 ?>
