@@ -33,6 +33,7 @@
 						initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 						map.setCenter(initialLocation);
 						map.setZoom(14);
+						// 현재 위치를 가져와서 화면의 중심으로 만드는 단계
 
 						var marker = new google.maps.Marker({
 							position : initialLocation,
