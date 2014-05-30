@@ -156,10 +156,8 @@
 							<textarea id="element_1" name="content" class="element textarea large" placeholder="내용">
 							<?php
 		
-		$db = mysql_connect("localhost", "a7229328_eyecast", "qlalf1234");
+		$db = mysqli_connect("mysql7.000webhost.com", "a7229328_eyecast", "qlalf1234", "a7229328_eyecast");
 		
-		
-		$er = mysql_select_db("a7229328_eyecast", "db");
 		
 		$title = "select*from database where title";
 		$content = "select*from database where content";
@@ -169,21 +167,21 @@
 		$userId = "select*from database where userId";
 		$userName = "select*from database where userName";
 		
-		$rtitle = mysql_query($title, $db);
-		$rcontent = mysql_query($content, $db);
-		$rlocLat = mysql_query($locLat, $db);
-		$rlocLng = mysql_query($locLng, $db);
-		$rdate = mysql_query($date, $db);
-		$ruserId = mysql_query($userId, $db);
-		$ruserName = mysql_query($userName, $db);
+		$rtitle = mysqli_query($db, $title);
+		$rcontent = mysqli_query($db, $content);
+		$rlocLat = mysqli_query($db, $locLat);
+		$rlocLng = mysqli_query($db, $locLng);
+		$rdate = mysqli_query($db, $date);
+		$ruserId = mysqli_query($db, $userId);
+		$ruserName = mysqli_query($db, $userName);
 		
-		$dtitle = mysql_fetch_array($rtitle);
-		$dcontent = mysql_fetch_array($rcontent);
-		$dlocLat = mysql_fetch_array($rlocLat);
-		$dlocLng = mysql_fetch_array($rlocLng);
-		$ddate = mysql_fetch_array($rdate);
-		$duserId = mysql_fetch_array($ruserId);
-		$duserName = mysql_fetch_array($ruserName);
+		$dtitle = mysqli_fetch_array($db, $rtitle);
+		$dcontent = mysqli_fetch_array($db, $rcontent);
+		$dlocLat = mysqli_fetch_array($db, $rlocLat);
+		$dlocLng = mysqli_fetch_array($db, $rlocLng);
+		$ddate = mysqli_fetch_array($db, $rdate);
+		$duserId = mysqli_fetch_array($db, $ruserId);
+		$duserName = mysqli_fetch_array($db, $ruserName);
 		
 		print "<p><b>타이틀 1 :</b>" . $dtitle[0] . "</p>";
 		print "<p><b>컨텐츠1 :</b>" . $dcontent[0] . "</p>";
