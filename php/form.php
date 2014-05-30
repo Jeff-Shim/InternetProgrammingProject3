@@ -29,18 +29,18 @@
 		$userName = $_POST['userName'];
 		$userId = $_POST['userId']; // used for uploading user's profile image
 		
-		$image_size = getimagesize($_FILES['upload']['size']);
+		//$image_size = getimagesize($_FILES['upload']['size']);
 		
-		if ($image_size > 100000)
-		echo "사진이 너무 큽니다! ";
+		//if ($image_size > 100000)
+		//echo "사진이 너무 큽니다! ";
 		
 		
-		if($image_size == FALSE)
-		{
-		echo "사진파일 이어야 합니다.";
-		}
-		else
-		{
+		//if($image_size == FALSE)
+		//{
+		//echo "사진파일 이어야 합니다.";
+		//}
+		//else
+		//{
 			// insert data to db and checks if all elements exist
 			if(!$insert = mysql_query("INSERT INTO database VALUES ('','$image_name','$image_size','$title','$content','$locationLat','$locationLng','$date','$us')")) // INSERT 8 + 1 ELEMENTS, FIRST ELEMENT = ID 
 			{
@@ -54,7 +54,7 @@
 			}
 			
 			
-		}
+		//}
 		
 		
 	
