@@ -7,12 +7,12 @@
 	if($_POST['submit'])
 	{
 		
-		if(!isset($file))
-		{
-			echo "사진을 선택해 주세요! ";
-		}	
-		else	
-		{
+		//if(!isset($file))
+		//{
+			//echo "사진을 선택해 주세요! ";
+	//	}	
+		//else	
+		//{
 		// photo variables
 		$image_name = addslashes($_FILES['upload']['name']); // put add slashes for the protection from mysql crash
 		$image = addslashes(file_get_contents($_FILES['upload']['tmp_name'])); // get an image
@@ -59,7 +59,7 @@
 		
 	
 		
-		}
+		//}
 		
 		
 		
