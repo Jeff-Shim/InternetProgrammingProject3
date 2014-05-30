@@ -9,8 +9,13 @@
 	<body>
 
 		<p><img src="../php/getPhoto.php?id=21"></p>
-		<p>tester.html</p>
+<<<<<<< HEAD
+	
+=======
+		<p>test.html</p>
 		<img src ="../php/getPhoto.php?id=22">
+>>>>>>> d15b7fc46f1890b4a145b038c8f59d4fe115ac4d
 	</body>
 
 </html>
+
