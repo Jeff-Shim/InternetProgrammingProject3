@@ -23,8 +23,9 @@
 		$title = $_POST['title'];
 		$content = $_POST['content'];
 	    // add location, date, author's name and id
-		$loc = $_POST['location'];
-		$date = $_POST['date'];
+		$locationLat = $_POST['locationLat'];
+		$locationLng = $_POST['locationLng'];
+		$date = date (c);
 		$userName = $_POST['userName'];
 		$userId = $_POST['userId']; // used for uploading user's profile image
 		
@@ -41,7 +42,7 @@
 		else
 		{
 			// insert data to db and checks if all elements exist
-			if(!$insert = mysql_query("INSERT INTO store VALUES ('','$image_name','$_image_size','','','','','','','','')")) // INSERT 10 + 1 ELEMENTS, FIRST ELEMENT = ID 
+			if(!$insert = mysql_query("INSERT INTO database VALUES ('','$image_name','$image_size','$title','$content','$locationLat','$locationLng','$date','$userId')")) // INSERT 8 + 1 ELEMENTS, FIRST ELEMENT = ID 
 			{
 				echo "Problem uploading image";
 			}
