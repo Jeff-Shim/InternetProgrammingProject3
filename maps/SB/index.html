@@ -36,22 +36,24 @@
 						map.setCenter(initialLocation);
 						map.setZoom(14);
 						
+						marker.setIcon('eye.png');
+						
 						var mymarker = new google.maps.Marker({
 							position : initialLocation,
 							map : map,
-							icon : pinImage,
 							title : "Your location"
 						});
 						
 					});
 
-
+				}
 						var pinColor = "FFFFFF";
 						var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor, new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
 
 						var marker = new google.maps.Marker({
 							position : myLatlng,
 							map : map,
+							icon : pinImage,
 							title : "Hello World!"
 						});
 
@@ -80,7 +82,6 @@
 						google.maps.event.addListener(marker, 'click', function() {
 							infowindow.open(map, marker);
 						});
-				}
 			}
 
 			function loadScript() {
