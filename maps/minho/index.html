@@ -217,6 +217,7 @@
 					console.log('Successful login for: ' + response.name);
 					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
 					document.getElementById("signInButton").style.display = 'none';
+					document.getElementById("postButton").style.display = '';
 					if (response) {
 						var image = document.getElementById('userImage');
 						image.src = 'http://graph.facebook.com/' + response.id + '/picture';
@@ -246,7 +247,16 @@
 					<b>Sign in</b>
 				</div>
 			</div>
+
 			<img id="userImage"/>
+		</div>
+		<div style="width: 100%; position: absolute; bottom: 2em">
+			<a href="../Handsome/index.html" target="_top">
+			<div id="postButton" title="Click to post" style="margin: auto; width: 5em; background-color: rgb(66, 133, 244); border-style: solid; border-width: 0px; border-top-left-radius: 2pt; border-top-right-radius: 2pt; border-bottom-right-radius: 2pt; border-bottom-left-radius: 2pt; cursor: pointer; text-align: center;">
+				<div id="postText" style="font-family: Arial, sans-serif; font-size: 14px; color: white; padding: 7px 12px;">
+					<b>Cast</b>
+				</div>
+			</div> </a>
 		</div>
 	</body>
 </html>
