@@ -215,16 +215,34 @@
 	
 		for($row_num = 0; $row_num < $num_rows; $row_num++)	{
 			reset($row);
-			for($field_num = 0; $field_num < $num_fields; $field_num++)
-				print "<p>" . $row[$field_num] . "</p>";
-			
+			print "<p>위도 " . $row_num . ": " . $row[2] . "</p>";
+			print "<p>경도 " . $row_num . ": " . $row[3] . "</p>";
 			$row = mysqli_fetch_array($result);
 	
 		}
+		
+		trim($sql);
+		
+		$result = mysqli_query($db, $sql);
+	
+		$num_rows = mysqli_num_rows($result);
+		
+		$row = mysqli_fetch_array($result);
+		
+		$num_fields = sizeof($row);
+		
+		for($row_num = 0; $row_num < $num_rows; $row_num++)	{
+			reset($row);
+			for($field_num = 0; $field_num < $num_fields/2; $field_num++)
+			{
+					print "<p>" . $row[$field_num] . "</p>";
+			}
+			$row = mysqli_fetch_array($result);
+	
+		}
+		
 
 		?>
-		
-		
 		
 		
 	</body>
