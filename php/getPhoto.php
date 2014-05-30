@@ -11,7 +11,7 @@
 	
 	header("Content-type: image/jpeg"); // makes this whole php into an image file
 	
-	
+	echo $image;
 	// if you would like to retrieve the image that you want inside the other documents,
 	// <img src = getPhoto.php?id= (whatever number) > <-echo this statement
 ?>
