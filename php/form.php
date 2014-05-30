@@ -42,7 +42,7 @@
 		//else
 		//{
 			// insert data to db and checks if all elements exist
-			$insert = mysql_query("INSERT INTO database VALUES ('','$image_name','$image','$title','$content','$locationLat','$locationLng','$date','$userId', '$userName')"); // INSERT 8 + 1 ELEMENTS, FIRST ELEMENT = ID 
+			$insert = mysql_query("INSERT INTO 'a7229328_eyecast'.'database' VALUES ('','$image_name','$image','$title','$content','$locationLat','$locationLng','$date','$userId', '$userName')"); // INSERT 8 + 1 ELEMENTS, FIRST ELEMENT = ID 
 			
 				
 			
