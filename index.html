@@ -26,6 +26,10 @@
 				};
 
 				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+				
+		
+				
+				
 
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(function(position) {
@@ -49,8 +53,67 @@
 						google.maps.event.addListener(marker, 'click', function() {
 							infowindow.open(map, marker);
 						});
+						
+						
+								
+				//Initialize a variable that the auto-size the map to whatever you are plotting
+            	var bounds = new google.maps.LatLngBounds();
+           		 //Initialize the encoded string       
+           		 var encodedString;
+           		 //Initialize the array that will hold the contents of the split string
+           		 var stringArray = [];
+          		 //Get the value of the encoded string from the hidden input
+          		  encodedString = document.getElementById("encodedString").value;
+          		  //Split the encoded string into an array the separates each location
+           		 stringArray = encodedString.split("****");
+				
+				
+			    var x;
+            
+            for (x = 0; x < stringArray.length; x = x + 1)
+            {
+                var addressDetails = [];
+                var marker;
+                //Separate each field
+                addressDetails = stringArray[x].split("&&&");
+                //Load the lat, long data
+                var lat = new google.maps.LatLng(addressDetails[1], addressDetails[2]);
+                //Create a new marker and info window
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: lat,
+                    //Content is what will show up in the info window
+                    content: addressDetails[0]
+                });
+                //Pushing the markers into an array so that it's easier to manage them
+                markersArray.push(marker);
+                google.maps.event.addListener( marker, 'click', function () {
+                    closeInfos();
+                    var info = new google.maps.InfoWindow({content: this.content});
+                    //On click the map will load the info window
+                    info.open(map,this);
+                    infos[0]=info;
+                });
+               //Extends the boundaries of the map to include this new location
+               bounds.extend(lat);
+            }
+            //Takes all the lat, longs in the bounds variable and autosizes the map
+            map.fitBounds(bounds);
+ 
+            //Manages the info windows
+            function closeInfos(){
+           if(infos.length > 0){
+              infos[0].set("marker",null);
+              infos[0].close();
+              infos.length = 0;
+           }
+            }
+				
+						
 					});
-
+					
+					
+				
 				}
 
 				/*
@@ -259,5 +322,58 @@
 				</div>
 			</div> </a>
 		</div>
+			<?php
+		
+							$db = mysqli_connect("mysql7.000webhost.com", "a7229328_eyecast", "qlalf1234", "a7229328_eyecast");
+		
+							mysqli_query($db, 'set names utf8');
+							
+							
+       						 $encodedString = ""; 
+       						 
+ 
+							
+							$sql = 'SELECT `title`, `content`, `locationLat`, `locationLng`, `date`, `userId`, `userName` FROM `database` ORDER BY `id` ASC';
+		
+							trim($sql);
+							
+							$result = mysqli_query($db, $sql);
+	
+							$num_rows = mysqli_num_rows($result);
+		
+							$row = mysqli_fetch_array($result);
+		
+							$num_fields = sizeof($row);
+
+							for($row_num = 1; $row_num < 1 + $num_rows; $row_num++)	{
+									reset($row);
+								
+								$y = 0; 	
+         						 if ( $y == 0 )
+            					{
+               					  $separator = "";
+            					}
+           						else
+           						 {
+             				       $separator = "****";
+            					 }
+            					 
+            					 $encodedString = $encodedString.$separator.
+            					"<p class='content'><b>title:</b> ".$row[0].
+            					"<br><b>content:</b> ".$row[1].
+           					    "<br><b>lat: </b>".$row[2].
+            					"<br><b>long: </b>".$row[3].
+            					"<br><b>username: </b>".$row[6].
+            					"</p>&&&".$row[2]."&&&".$row[3];
+								
+								
+								$y = 30;
+								$row = mysqli_fetch_array($result);
+	
+							}
+														
+						?>
+						 <input type="hidden" id="encodedString" name="encodedString" value="<?php echo $encodedString; ?>" />
+
 	</body>
 </html>
