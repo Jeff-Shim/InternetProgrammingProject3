@@ -5,63 +5,83 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 		<meta charset="utf-8">
 		<style>
-            html, body, #map-canvas {
-                height: 100%;
-                margin: 0px;
-                padding: 0px
-            }
+			html, body, #map-canvas {
+				height: 100%;
+				margin: 0px;
+				padding: 0px
+			}
+
+			.gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
+				max-height: 400px;
+				max-width: 250px;
+				padding: 0px 5px 5px 5px;
+				overflow-y: auto;
+				overflow-x: auto;
+			}
+
+			.gm-style-iw div {
+				overflow: visible !important;
+			}
 		</style>
 		<script>
 			function initialize() {
 				var myLatlng = new google.maps.LatLng(-25.363882, 131.044922);
 				var mapOptions = {
 					zoom : 8,
-					center : myLatlng
+					center : myLatlng,
+					streetViewControl: false
 				};
 
 				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
- 				var pinColor = "C3C3C3";
-    			var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-        			new google.maps.Size(21, 34),
-        			new google.maps.Point(0,0),
-       				new google.maps.Point(10, 34)
-       			);
-       		
+				var pinColor = "C3C3C3";
+				var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor, new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
 
 				var marker = new google.maps.Marker({
-                	position: myLatlng,
-                	map: map,
-                	icon: pinImage,
-               		title: "Hello World!"
-               		
-           		});
-           		
-           //	marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-           //	marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+					position : myLatlng,
+					map : map,
+					icon : pinImage,
+					title : "Hello World!"
+
+				});
+
+				//	marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+				//	marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
 
 				var title = '팀플사고남;';
 				var post_name = '권회민';
 				var post_date = '2014-05-23';
-				
-				var content = "<h1>하하하하하하하<br><br><br><br></h1>";
-				var content_title = '<h1>제목 : ' + title + '</h1>';
-				var content_test = '<h3 style="float: left; color: #6E7D85"> Posted : ' + post_date + '</h3>' +
-								'<h3 style="text-align: right; color: #6E7D85"> 작성자 : ' + post_name + '&nbsp; &nbsp;</h3>';
-				var img = '<img src="eagle-face.jpg" width=90% alt="" />';
-				var frame = '<iframe src="http://www.w3schools.com"></iframe>';
-				
-				var infowindow = new google.maps.InfoWindow( { 
-            		content: content_title + '<br/>' + content_test + '<hr/>' + content + img 
-           // 		maxwidth: 500
-           // 		size: new google.maps.Size(600,500)
-          		}); 
 
-				google.maps.event.addListener(marker, 'click', function() { 
- 					infowindow.open(map, marker); 
+				var content = "gggg gggggggggggggggg gggggggggggg" //영어,숫자 : 33
+							+ "하하하하하하하하하하하하하하하하하하하하g"	  //한글 : 20 + 영,숫 : 1
+							+ "하하하하하하하하하하하하하하하하하하하하3"
+							+ "하하하하하하하하하하하하하하하하하하하하4"
+							+ "하하하하하하하하하하하하하하하하하하하하5"
+							+ "하하하하하하하하하하하하하하하하하하하하6"
+							+ "하하하하하하하하하하하하하하하하하하하하7"
+							+ "하하하하하하하하하하하하하하하하하하하하8"
+							+ "하하하하하하하하하하하하하하하하하하하하9"
+							+ "하하하하하하하하하하하하하하하하하하하하0"
+							+ "하하하하하하하하하하하하하하하하하하하하1"
+							+ "하하하하하하하하하하하하하하하하하하하하2"
+							+ "하하하하하하하하하하하하하하하하하하하하3"
+							+ "하하하하하하하하하하하하하하하하하하하하4"
+							+ "하하하하하하하하하하하하하하하하하하하하5"
+							+ "하하하하하하하하하하하하하하하하하하하하6";
+				var content_title = '<h2>제목 : ' + title + '</h2>';
+				var content_test = '<h5 style="color: #6E7D85"> Posted : ' + post_date + '</h5>' 
+									+ '<h5 style="color: #6E7D85"> 작성자 : ' + post_name + '</h5>';
+				var img = '<img src="eagle-face.jpg" width=230px height=230px alt="" />';
+				var frame = '<iframe scrolling="yes" src="http://www.w3schools.com"></iframe>';
+
+				var infowindow = new google.maps.InfoWindow({
+					content : '<div style="line-height:0.2em;">' + content_title + content_test + '<hr/>' + '</div>' + content
 				});
-				
-				
+
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map, marker);
+				});
+
 			}
 
 			function loadScript() {
@@ -69,8 +89,27 @@
 				script.type = 'text/javascript';
 				script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' + 'callback=initialize';
 				document.body.appendChild(script);
+				var myWindow = getElementsByClassName('gm-style-iw', 'div')[0];
+				myWindow.style.overflow = 'scroll';
+
 			}
-	 
+
+			function getElementsByClassName(classname, tag) {
+				if (!tag)
+					tag = "*";
+				var anchs = document.getElementsByTagName(tag);
+				var total_anchs = anchs.length;
+				var regexp = new RegExp('\\b' + classname + '\\b');
+				var class_items = new Array()
+
+				for (var i = 0; i < total_anchs; i++) {
+					var this_item = anchs[i];
+					if (regexp.test(this_item.className))
+						class_items.push(this_item);
+				}
+				return class_items;
+			}
+
 
 			window.onload = loadScript;
 
