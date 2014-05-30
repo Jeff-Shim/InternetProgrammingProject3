@@ -5,7 +5,7 @@
 	
 	$id = stripslashes($_REQUEST['id']); //use stripslahses in order to prevent sql injection crash
 	
-	$image = mysql_query("SELECT * FROM store WHERE id = $id");
+	$image = mysql_query("SELECT * FROM database WHERE id = $id");
 	$image = mysql_fetch_assoc($image);
 	$image= $image['image']; // get image from the associated array of db
 	
