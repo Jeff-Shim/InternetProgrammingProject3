@@ -23,11 +23,12 @@ if ($_POST['submit']) {
     $imageGot = new SimpleImage();
     $imageGot->load($_FILES['upload']['tmp_name']);
     $imageGot->resizeToLonger(1024);
+    // resize image so that longer part becomes 1024px
     ob_start();
     $imageGot->output();
     $image = ob_get_clean();
     $image = addslashes($image);
-    // get an image
+    // get an image as string (which is blob)
     $type = $_FILES['upload']['type'];
 
     // add other elements such as title and contents
