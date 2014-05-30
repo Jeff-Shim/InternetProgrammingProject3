@@ -1,4 +1,6 @@
-<?php
+<?php 
+
+include('resizeImage.php');
 
 $con = mysqli_connect("mysql7.000webhost.com", "a7229328_eyecast", "qlalf1234", "a7229328_eyecast");
 mysqli_query($con, "set names utf8");
@@ -18,7 +20,13 @@ if ($_POST['submit']) {
     // photo variables
     $image_name = addslashes($_FILES['upload']['name']);
     // put add slashes for the protection from mysql crash
-    $image = addslashes(file_get_contents($_FILES['upload']['tmp_name']));
+    $imageGot = new SimpleImage();
+    $imageGot->load($_FILES['upload']['tmp_name']);
+    $imageGot->resizeToLonger(1024);
+    ob_start();
+    $imageGot->output();
+    $image = ob_get_clean();
+    $image = addslashes($image);
     // get an image
     $type = $_FILES['upload']['type'];
 
