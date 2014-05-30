@@ -6,13 +6,133 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="HMstyle.css" />
 		<script src="miri.js"></script>
+		<script type="text/javascript">
+			/***************************
+			 * Facebook Sign in Scripts *
+			 ****************************/
+			// This is called with the results from from FB.getLoginStatus().
+			function statusChangeCallback(response) {
+				console.log('statusChangeCallback');
+				console.log(response);
+				// The response object is returned with a status field that lets the
+				// app know the current login status of the person.
+				// Full docs on the response object can be found in the documentation
+				// for FB.getLoginStatus().s
+				if (response.status === 'connected') {
+					// Logged into your app and Facebook.
+					afterFBLogin();
+				} else if (response.status === 'not_authorized') {
+					// The person is logged into Facebook, but not your app.
+					//document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+				} else {
+					// The person is not logged into Facebook, so we're not sure if
+					// they are logged into this app or not.
+					//document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+				}
+			}
+
+			// This function is called when someone finishes with the Login
+			// Button.  See the onlogin handler attached to it in the sample
+			// code below.
+			function checkLoginState() {
+				FB.getLoginStatus(function(response) {
+					statusChangeCallback(response);
+				});
+			}
+
+
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId : '664834296899835',
+					cookie : true, // enable cookies to allow the server to access
+					// the session
+					xfbml : true, // parse social plugins on this page
+					version : 'v2.0' // use version 2.0
+				});
+
+				// Now that we've initialized the JavaScript SDK, we call
+				// FB.getLoginStatus().  This function gets the state of the
+				// person visiting this page and can return one of three states to
+				// the callback you provide.  They can be:
+				//
+				// 1. Logged into your app ('connected')
+				// 2. Logged into Facebook, but not your app ('not_authorized')
+				// 3. Not logged into Facebook and can't tell if they are logged into
+				//    your app or not.
+				//
+				// These three cases are handled in the callback function.
+
+				FB.getLoginStatus(function(response) {
+					statusChangeCallback(response);
+				});
+
+				FB.Event.subscribe('auth.login', function(response) {
+					document.location.reload();
+				});
+
+			};
+
+			// Load the SDK asynchronously
+			( function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id))
+						return;
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//connect.facebook.net/en_US/sdk.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+
+			// Here we run a very simple test of the Graph API after login is
+			// successful.  See statusChangeCallback() for when this call is made.
+			function afterFBLogin() {
+				//window.alert('hello');
+				//document.getElementById("signInText").innerHTML = 'Sign Out';
+
+				//controlDiv.removeChild(controlUI);
+
+				console.log('Welcome!  Fetching your information.... ');
+				FB.api('/me', function(response) {
+					console.log('Successful login for: ' + response.name);
+					//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+					//window.alert("you have logged in. ID:" + response.id);
+					if (response) {
+						var image = document.getElementById('userImage');
+						image.src = 'http://graph.facebook.com/' + response.id + '/picture';
+						var id = document.getElementById('userID');
+						id.value = response.id;
+						var name = document.getElementById('userName');
+						name.value = response.name;
+						if (navigator.geolocation) {
+							navigator.geolocation.getCurrentPosition(function(position) {
+								var lat = document.getElementById('locationLat');
+								lat.value = position.coords.latitude;
+								var lng = document.getElementById('locationLng');
+								lng.value = position.coords.longitude;
+							});
+						}
+						/*
+						 var name = document.getElementById('name');
+						 name.innerHTML = response.name
+						 var id = document.getElementById('id');
+						 id.innerHTML = response.id*/
+
+					}
+
+				});
+				//var controlDiv = document.getElementById("controlDiv");
+
+			}
+		</script>
 	</head>
 	<body>
 
 		<div id="form_container" align="center">
 
 			<h1><a>Post</a></h1>
+			<img id="userImage"/ style="width: 50px; height: 50px">
 			<form id="form_848882" class="appnitro" enctype="multipart/form-data" method="post" action="/formbuilder/view.php">
+
 				<div class="form_description">
 
 					<ul>
@@ -35,7 +155,8 @@
 								<a class="_1dsr"  rel="ignore" id="u_4_17">
 								<div class="_3jk">
 									<span class="_4-px ellipsis">사진 추가</span>
-									<input id="element_3" name="upload" class="element file _n _5f0v " accept="image/*" capture="camera" title="사진을 올려주세요" type="file" onchange="previewImage(this,'View_area')"/>								</div> </a>
+									<input id="element_3" name="upload" class="element file _n _5f0v " accept="image/*" capture="camera" title="사진을 올려주세요" type="file" onchange="previewImage(this,'View_area')"/>
+								</div> </a>
 							</div>
 						</div>
 					</li>					<li class="buttons" style="display: inline;">
@@ -52,10 +173,10 @@
 						</div>
 					</li>
 				</ul>
-				<input type='hidden' name='userId' value='' />
-				<input type='hidden' name='userName' value='' />
-				<input type='hidden' name='date' value='' />
-				<input type='hidden' name='location' value='' />
+				<input id='userID' type='hidden' name='userId' />
+				<input id='userName' type='hidden' name='userName' />
+				<input id='locationLat' type='hidden' name='locationLat' />
+				<input id='locationLng' type='hidden' name='locationLng' />
 			</form>
 		</div>
 	</body>
