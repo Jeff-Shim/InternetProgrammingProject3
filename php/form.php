@@ -50,7 +50,7 @@
 			 {
 			
 				$lastid = mysql_insert_id(); 
-				header("Location:index.html");	
+				header("Location:../index.html");	
 			}
 			
 			
@@ -66,6 +66,6 @@
 	}	
 	else
 	{
-		header("Location:index.html");
+		header("Location:../index.html");
 	}
 ?>
