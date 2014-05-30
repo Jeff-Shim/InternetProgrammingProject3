@@ -142,25 +142,24 @@
 
 				<div class="form_description">
 
-							<div>
-								<input id="element_2" name="title" class="element text large" type="text" maxlength="255" placeholder="제목"/>
-							</div>
+					<div>
+						<input id="element_2" name="title" class="element text large" type="text" maxlength="255" placeholder="제목"/>
+					</div>
 				</div>
 				<div id='View_area' style='position:relative; border: 0px solid black;'></div>
-							<textarea id="element_1" name="content" class="element textarea large" placeholder="내용"></textarea>
-						<div class="lfloat">
-								<label class="fileButton">
-									<img src="camera_blue.png" />
-									<input name="upload" accept="image/*" title="사진을 올려주세요" type="file" onchange="previewImage(this,'View_area')"/>
-								</label>
-						</div>
-						<div class="rfloat">
-							<input id="saveForm" type="submit" class="button" name="submit" value="Cast" />						</div>
-						
-							<p style="color:gray; position:relative; margin: 0; line-height: 43px;">
-								Upload Photo
-							</p>
-						
+				<textarea id="element_1" name="content" class="element textarea large" placeholder="내용"></textarea>
+
+				<div class="lfloat">
+					<label class="fileButton"> <img src="camera_blue.png" />
+						<input name="upload" accept="image/*" title="사진을 올려주세요" type="file" onchange="previewImage(this,'View_area')"/>
+					</label>
+				</div>
+				<div class="rfloat">
+					<input id="saveForm" type="submit" class="button" name="submit" value="Cast" />
+				</div>
+				<span style="color:gray; position:relative; margin: 0; line-height: 43px;">
+					Upload Photo
+				</span>
 				<input id='userID' type='hidden' name='userId' />
 				<input id='userName' type='hidden' name='userName' />
 				<input id='locationLat' type='hidden' name='locationLat' />

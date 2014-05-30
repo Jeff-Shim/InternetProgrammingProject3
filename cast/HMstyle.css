@@ -57,7 +57,7 @@ body {
 }
 
 form.appnitro {
-    padding: 0 0 20px;
+    padding: 20px 20px 20px 20px;
 }
 
 /**** Logo Section  *****/
@@ -113,7 +113,7 @@ img {
     border-bottom: 1px dotted #ccc;
     clear: both;
     display: inline-block;
-    margin: 20px 20px 1em 20px;
+    margin: 0 0 1em 0;
 }
 
 .form_description[class] {
@@ -177,7 +177,6 @@ textarea.textarea {
     font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
     font-size: 130%;
     margin: 0;
-    width: 91%;
     border: 0;
 }
 
@@ -225,7 +224,7 @@ select.large {
 
 textarea.large {
     height: 18em;
-    margin: 0 20px 0 20px;
+    width: 100%;
 }
 
 /**** Errors ****/
@@ -358,7 +357,7 @@ ul.password {
 
 .lfloat {
     float: left;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 -10px;
 }
 
 .lfloat label.fileButton {
