@@ -18,7 +18,7 @@
     $image = $image['image'];
     // get image from the associated array of db
     
-    //header("Content-type: image/jpeg");
+    header("Content-type: image/jpeg");
     // makes this whole php into an image file
     
     echo $image;
