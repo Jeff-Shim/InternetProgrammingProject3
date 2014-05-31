@@ -52,4 +52,6 @@ $y = $y + 1;
 
 }
 
+echo $encodedString;
+
 ?>

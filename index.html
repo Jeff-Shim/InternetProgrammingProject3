@@ -33,12 +33,7 @@
 				</div>
 			</div> </a>
 		</div>
-		<?php
-
-		include("php/getContent.php");
-
-		?>
-		<input type="hidden" id="encodedString" name="encodedString" value="<?php echo $encodedString; ?>" />
+		<input type="hidden" id="encodedString" name="encodedString" value="<?php include("php/getContent.php"); ?>" />
 
 	</body>
 </html>
