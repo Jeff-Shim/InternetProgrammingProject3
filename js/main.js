@@ -102,7 +102,9 @@ function initialize() {
 				oms.addMarker(marker);
 				//Pushing the markers into an array so that it's easier to manage them
 				markersArray.push(marker);
-				info = new google.maps.InfoWindow();
+				info = new google.maps.InfoWindow({
+					maxWidth : 240
+				});
 
 				oms.addListener('click', function(marker, event) {
 					closeInfos();
