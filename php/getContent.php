@@ -18,17 +18,14 @@ $separator="";
 $separator="****";
 }
 $encodedString=$encodedString.$separator."
-<p class='content'>"."<img src='http://graph.facebook.com/".$row[6]."/picture'><br />"."
-	<b>title:</b>".$row[1]."
-	<br />"."<img src='php/getPhoto.php?id=".$row[0]."'><br />"."
-	<b>content:</b>".$row[2]."
-	<br />
-	<b>lat: </b>".$row[3]."
-	<br />
-	<b>long: </b>".$row[4]."
-	<br />
-	<b>username: </b>".$row[7]."
-</p>&&&".$row[3]."&&&".$row[4];
+<div class='scrollFix';'>"."
+	<h2 style='margin:0 0 4px 0;'>".$row[1]."</h2><div style='height: 50px;'><img style='float: left' src='http://graph.facebook.com/".$row[6].
+    "/picture'><h5 style='margin: 0; padding: 10px 0 0 55px; color: #6E7D85'> Posted : ".$row[5].
+	"</h5>"."<h5 style='margin: 0; padding: 0 0 0 55px; color: #6E7D85'> 작성자 : ".$row[7].
+	"</h5></div></div><hr/><img style='width: 230px' src='php/getPhoto.php?id=".$row[0].
+	"'><p>".$row[2].
+	"</p>&&&".$row[3].
+	"&&&".$row[4];
 $y=$y+1;
 //$row = mysqli_fetch_array($result);
 }
