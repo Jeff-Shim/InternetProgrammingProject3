@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+html, body, #map-canvas {
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+}
+
+.star-rating {
+    margin: 0 auto;
+    display: inline-block;
+}
+/* radio button stars */
+/* you can easily stuff the generation of these repetitive chunks of CSS into a server-side language like ASP */
+.rb0:checked ~ .rating,
+label.rb0l:hover ~
+.rating {
+    width: 0px; /* no stars */
+}
+.rb1:checked ~ .rating,
+label.rb1l:hover ~
+.rating {
+    width: 8px; /* half a star */
+}
+.rb2:checked ~ .rating,
+label.rb2l:hover ~
+.rating {
+    width: 16px; /* a star */
+}
+.rb3:checked ~ .rating,
+label.rb3l:hover ~
+.rating {
+    width: 24px; /* 1.5 stars */
+}
+.rb4:checked ~ .rating,
+label.rb4l:hover ~
+.rating {
+    width: 32px; /* 2 stars */
+}
+.rb5:checked ~ .rating,
+label.rb5l:hover ~
+.rating {
+    width: 40px;
+}
+.rb6:checked ~ .rating,
+label.rb6l:hover ~
+.rating {
+    width: 48px;
+}
+.rb7:checked ~ .rating,
+label.rb7l:hover ~
+.rating {
+    width: 56px;
+}
+.rb8:checked ~ .rating,
+label.rb8l:hover ~
+.rating {
+    width: 64px;
+}
+.rb9:checked ~ .rating,
+label.rb9l:hover ~
+.rating {
+    width: 72px;
+}
+.rb10:checked ~ .rating,
+label.rb10l:hover ~
+.rating {
+    width: 80px; /* 5 stars */
+}
+.star-rating label.star {
+    width: 8px; /* half star */
+    left: -8px; /* half star */
+    padding: 0;
+    height: 20px; /* whole star + 2x padding (2px each for top and bottom) */
+    position: relative;
+    z-index: 3;
+    float: left;
+}
+.star-rating label.star.last {
+    width: 8px;
+}
+/* hide inputs (RBs and their labels) */
+.star-rating input[type=radio], .star-rating label.rb {
+    display: none;
+}
+/* using icons found at http://www.easyicon.cn/language.en/icondetail/523835/ */
+.rating {
+    background: url("../images/star.png") repeat-x top left;
+    position: relative;
+    z-index: 2;
+    top: 2px; /* 1x padding */
+    height: 16px; /* whole star */
+    width: 0px;
+}
+.rating-bg {
+    background: url("../images/star_blank.png") repeat-x top left;
+    position: relative;
+    z-index: 1;
+    top: -14px; /* 1 whole star - 1x padding */
+    height: 16px; /* whole star */
+    width: 80px;
+}
+/* IE8 fallback to radio buttons */
+.ie8 .star-rating input, .ie8 .star-rating label.rb {
+    display: inline-block;
+}
+.ie8 .rating, .ie8 .rating-bg, .ie8 .star-rating label.star {
+    display: none;
+}

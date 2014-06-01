@@ -418,11 +418,11 @@ function initialize() {
 			stringArray = encodedString.split("****");
 
 			var limitOfX = stringArray.length;
-			
+
 			var Rating = 0;
-			
+
 			var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + PinColor(Rating), new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
-	
+
 			for (var i = 0; i < limitOfX; i = i + 1) {
 				var addressDetails = [];
 				var marker;
@@ -470,9 +470,9 @@ function initialize() {
 					infos.length = 0;
 				}
 			}
-			
-			var ColorAry = ["000","222","363636","555","707070","898989","a1a1a1","b7b7b7","ccc","e1e1e1","fff"];
-			
+
+			var ColorAry = ["000", "222", "363636", "555", "707070", "898989", "a1a1a1", "b7b7b7", "ccc", "e1e1e1", "fff"];
+
 			function PinColor(Rating) {
 				switch(Rating) {
 					case 0:
@@ -699,4 +699,30 @@ function afterFBLogin() {
 	});
 	//var controlDiv = document.getElementById("controlDiv");
 
+}
+
+// Rate function
+// show submit button and submits
+function rate(id, rating) {
+	document.getElementById("ratingResult").style.display = 'none';
+	var ratingSubmit = document.getElementById("ratingSubmit");
+	ratingSubmit.style.display = 'inline';
+	ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + " );");
+}
+
+function submitRate(id, rating) {
+	alert(id + ", " + rating);
+	$.ajax({
+		url : '../php/rate.php',
+		data : {
+			contentId : id,
+			contentRating : rating
+		},
+		type : 'post',
+		success : function(output) {
+			ratingSubmit.setAttribute("onclick", "");
+			document.getElementById("ratingSubmit").innerHTML = "thank you!";
+			alert(output);
+		}
+	});
 }
