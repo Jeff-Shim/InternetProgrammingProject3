@@ -473,7 +473,7 @@ function initialize() {
 			
 			var ColorAry = ['000','222','363636','555','707070','898989','a1a1a1','b7b7b7','ccc','e1e1e1','fff'];
 			
-			function PinColor(Rationg) {
+			function PinColor(Rating) {
 				switch(Rating) {
 					case 0:
 						return ColorAry[0];
