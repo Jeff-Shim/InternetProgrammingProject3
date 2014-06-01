@@ -66,13 +66,14 @@ if ($_POST['submit']) {
 
 	//}
 	
-	$id = "SELECT LAST(`id`) FROM `database`;";
-	$sql = "CREATE DATABASE " . $id . " (userId INT, Participation Boolean)";
+	$id = "SELECT LAST(`id`) FROM `database`";
+	$sql = "CREATE DATABASE `".$id."` (userId INT, Participation Boolean)";
 	if (mysqli_query($con, $sql)) {
 		echo "Database my_db created successfully";
 	} else {
 		echo "Error creating database: " . mysqli_error($con);
 	}
+	
 	header("Location:../index.html");
 } else {
 	header("Location:../index.html");
