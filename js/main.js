@@ -418,7 +418,11 @@ function initialize() {
 			stringArray = encodedString.split("****");
 
 			var limitOfX = stringArray.length;
-
+			
+			var Rating = 5;
+			
+			var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + PinColor(Rating), new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+	
 			for (var i = 0; i < limitOfX; i = i + 1) {
 				var addressDetails = [];
 				var marker;
@@ -433,7 +437,8 @@ function initialize() {
 					position : lat,
 					//Content is what will show up in the info window
 					// title : title_variable
-					content : addressDetails[0]
+					content : addressDetails[0],
+					icon : pinImage
 				});
 				oms.addMarker(marker);
 				//Pushing the markers into an array so that it's easier to manage them
@@ -463,6 +468,49 @@ function initialize() {
 					infos[0].set("marker", null);
 					infos[0].close();
 					infos.length = 0;
+				}
+			}
+			
+			var ColorAry = ['000','222','363636','555','707070','898989','a1a1a1','b7b7b7','ccc','e1e1e1','fff'];
+			
+			function PinColor(Rationg) {
+				switch(Rating) {
+					case 0:
+						return ColorAry[0];
+						break;
+					case 1:
+						return ColorAry[1];
+						break;
+					case 2:
+						return ColorAry[2];
+						break;
+					case 3:
+						return ColorAry[3];
+						break;
+					case 4:
+						return ColorAry[4];
+						break;
+					case 5:
+						return ColorAry[5];
+						break;
+					case 6:
+						return ColorAry[6];
+						break;
+					case 7:
+						return ColorAry[7];
+						break;
+					case 8:
+						return ColorAry[8];
+						break;
+					case 9:
+						return ColorAry[9];
+						break;
+					case 10:
+						return ColorAry[10];
+						break;
+					default:
+						return ColorAry[5];
+						break;
 				}
 			}
 
