@@ -491,7 +491,7 @@ function initialize() {
 						return ColorAry[4];
 						break;
 					case 5:
-						return ColorAry[5];
+						return '898989';
 						break;
 					case 6:
 						return ColorAry[6];
