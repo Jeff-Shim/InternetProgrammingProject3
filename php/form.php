@@ -67,7 +67,7 @@ if ($_POST['submit']) {
 	//}
 	
 	$id = "SELECT LAST(`id`) FROM `database`;";
-	$sql = "CREATE DATABASE " + $id + " (userId INT, Participation Boolean)";
+	$sql = "CREATE DATABASE " . $id . " (userId INT, Participation Boolean)";
 	if (mysqli_query($con, $sql)) {
 		echo "Database my_db created successfully";
 	} else {
