@@ -19,7 +19,7 @@ if (isset($_POST['contentId']) && !empty($_POST['contentId'])) {
 
     $lastid = mysqli_insert_id($con);
     
-    echo "Thank you for voting!";
+    echo "Thank you for voting!\nYou gave it ". round($rating / 2, 1) . " stars.";
 
 }
 ?>

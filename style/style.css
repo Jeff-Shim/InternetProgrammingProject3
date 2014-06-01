@@ -164,7 +164,7 @@ label.rb10l:hover ~
     width: 0px;
 }
 .rating-default-bg {
-    background: url("../images/star_blank.png") repeat-x top left;
+    background: #fff url("../images/star_blank.png") repeat-x top left;
     position: relative;
     z-index: 1;
     top: -46px; /* 1 whole star - 1x padding */
