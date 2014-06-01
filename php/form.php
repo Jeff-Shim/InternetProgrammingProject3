@@ -19,17 +19,23 @@ if ($_POST['submit']) {
 	//{
 	// photo variables
 	$image_name = addslashes($_FILES['upload']['name']);
-	// put add slashes for the protection from mysql crash
-	$imageGot = new SimpleImage();
-	$imageGot -> load($_FILES['upload']['tmp_name']);
-	$imageGot -> resizeToLonger(1024);
-	// resize image so that longer part becomes 1024px
-	ob_start();
-	$imageGot -> output();
-	$image = ob_get_clean();
-	$image = addslashes($image);
-	// get an image as string (which is blob)
-	$type = $_FILES['upload']['type'];
+	if($_FILES['upload']['name'] == ''){
+        $image = addslashes('NULL');
+        $type = addslashes('NULL');
+    }
+    else {
+    	// put add slashes for the protection from mysql crash
+    	$imageGot = new SimpleImage();
+    	$imageGot -> load($_FILES['upload']['tmp_name']);
+    	$imageGot -> resizeToLonger(1024);
+    	// resize image so that longer part becomes 1024px
+    	ob_start();
+    	$imageGot -> output();
+    	$image = ob_get_clean();
+    	$image = addslashes($image);
+    	// get an image as string (which is blob)
+    	$type = $_FILES['upload']['type'];
+    }
 
 	// add other elements such as title and contents
 	$title = $_POST['title'];
