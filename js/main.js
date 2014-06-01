@@ -419,7 +419,7 @@ function initialize() {
 
 			var limitOfX = stringArray.length;
 			
-			var Rating = 5;
+			var Rating = 0;
 			
 			var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + PinColor(Rating), new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
 	
@@ -509,7 +509,7 @@ function initialize() {
 						return 'fff';
 						break;
 					default:
-						return '898989';
+						return '000';
 						break;
 				}
 			}
