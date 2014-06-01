@@ -422,9 +422,9 @@ function initialize() {
 
 			var limitOfX = stringArray.length;
 
-			var Rating = 0;
+			var Rating, ratingScore;
 
-			var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + PinColor(Rating), new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
+			
 
 			for (var i = 0; i < limitOfX; i = i + 1) {
 				var addressDetails = [];
@@ -434,6 +434,19 @@ function initialize() {
 				addressDetails = stringArray[i].split("&&&");
 				//Load the lat, long data
 				var lat = new google.maps.LatLng(addressDetails[1], addressDetails[2]);
+				/*
+				ratingScore = addressDetails[3] * 2;
+								if(0 <= ratingScore && ratingScore < 3) {
+									Rating = 0;
+								}
+								else if(3 <= ratingScore && ratingScore < 7){
+									Rating = 1;
+								}
+								else {
+									Rating = 2;
+								}*/
+				Rating = Math.round(addressDetails[3] * 2);
+				var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + PinColor(Rating), new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
 				//Create a new marker and info window
 				marker = new google.maps.Marker({
 					map : map,
@@ -443,6 +456,7 @@ function initialize() {
 					content : addressDetails[0],
 					icon : pinImage
 				});
+				
 				oms.addMarker(marker);
 				//Pushing the markers into an array so that it's easier to manage them
 				markersArray.push(marker);
@@ -475,45 +489,44 @@ function initialize() {
 				}
 			}
 
-			var ColorAry = ["000", "222", "363636", "555", "707070", "898989", "a1a1a1", "b7b7b7", "ccc", "e1e1e1", "fff"];
 
 			function PinColor(Rating) {
 				switch(Rating) {
 					case 0:
-						return '000';
-						break;
-					case 1:
-						return '222';
-						break;
-					case 2:
-						return '363636';
-						break;
-					case 3:
 						return '555';
 						break;
-					case 4:
+					case 1:
 						return '707070';
 						break;
-					case 5:
+					case 2:
 						return '898989';
 						break;
-					case 6:
+					case 3:
 						return 'a1a1a1';
 						break;
-					case 7:
+					case 4:
 						return 'b7b7b7';
 						break;
-					case 8:
+					case 5:
 						return 'ccc';
 						break;
-					case 9:
+					case 6:
 						return 'e1e1e1';
 						break;
-					case 10:
+					case 7:
 						return 'fff';
 						break;
+					case 8:
+						return '70ad47';
+						break;
+					case 9:
+						return 'ffc000';
+						break;
+					case 10:
+						return 'ff0000';
+						break;
 					default:
-						return '000';
+						return 'ffc000';
 						break;
 				}
 			}
