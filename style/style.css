@@ -128,7 +128,7 @@ label.rb10l:hover ~
     padding: 0;
     height: 20px; /* whole star + 2x padding (2px each for top and bottom) */
     position: relative;
-    z-index: 5;
+    z-index: 8;
     float: left;
 }
 .star-rating label.star.last {
