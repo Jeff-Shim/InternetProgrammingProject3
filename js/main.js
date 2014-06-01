@@ -476,40 +476,40 @@ function initialize() {
 			function PinColor(Rating) {
 				switch(Rating) {
 					case 0:
-						return ColorAry[0];
+						return '000';
 						break;
 					case 1:
-						return ColorAry[1];
+						return '222';
 						break;
 					case 2:
-						return ColorAry[2];
+						return '363636';
 						break;
 					case 3:
-						return ColorAry[3];
+						return '555';
 						break;
 					case 4:
-						return ColorAry[4];
+						return '707070';
 						break;
 					case 5:
 						return '898989';
 						break;
 					case 6:
-						return ColorAry[6];
+						return 'a1a1a1';
 						break;
 					case 7:
-						return ColorAry[7];
+						return 'b7b7b7';
 						break;
 					case 8:
-						return ColorAry[8];
+						return 'ccc';
 						break;
 					case 9:
-						return ColorAry[9];
+						return 'e1e1e1';
 						break;
 					case 10:
-						return ColorAry[10];
+						return 'fff';
 						break;
 					default:
-						return ColorAry[5];
+						return '898989';
 						break;
 				}
 			}
