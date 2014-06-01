@@ -3,6 +3,9 @@ window.onload = loadScript;
 /**********************
  * Google Maps Scripts *
  ***********************/
+var markers = [];
+var infos = [];
+// global variable (currently open infowindow)
 function initialize() {
 	var myLatlng = new google.maps.LatLng(37.5637, 126.9365037);
 	var initialLocation;
@@ -387,7 +390,6 @@ function initialize() {
 			// 현재 위치를 가져와서 화면의 중심으로 만드는 단계
 
 			var markersArray = [];
-			var infos = [];
 
 			var marker = new google.maps.Marker({
 				position : initialLocation,
@@ -400,6 +402,7 @@ function initialize() {
 			markersArray.push(marker);
 			var infowindow = new google.maps.InfoWindow();
 			oms.addListener('click', function(marker, event) {
+				markers[0] = marker;
 				closeInfos();
 				infowindow.setContent(marker.content);
 				infowindow.open(map, marker);
@@ -448,6 +451,7 @@ function initialize() {
 				});
 
 				oms.addListener('click', function(marker, event) {
+					markers[0] = marker;
 					closeInfos();
 					info.setContent(marker.content);
 					info.open(map, marker);
@@ -711,7 +715,6 @@ function rate(id, rating) {
 }
 
 function submitRate(id, rating) {
-	alert(id + ", " + rating);
 	$.ajax({
 		url : '../php/rate.php',
 		data : {
@@ -721,7 +724,22 @@ function submitRate(id, rating) {
 		type : 'post',
 		success : function(output) {
 			ratingSubmit.setAttribute("onclick", "");
-			document.getElementById("ratingSubmit").innerHTML = "thank you!";
+			ratingSubmit.style.display = 'none';
+			$(".rating").css("z-index", "6");
+			var oldContent = markers[0].content;
+			//var myRe = new RegExp('(\<h5 id="ratingResult" style="display: none; margin: 0 0 0 -9px; color: #9e0b0f"\>)',g);
+			var contentArr = oldContent.split(/(\<h5 id=.ratingResult. style=.display: .{4,6}; margin: 0 0 0 -9px; color: #9e0b0f.\>)/);
+			contentArr = contentArr[2].split(' ');
+			var oldRating = parseFloat(contentArr[0]);
+			contentArr = contentArr[1].split('(');
+			contentArr = contentArr[1].split(')');
+			var oldRatNum = parseInt(contentArr[0]);
+			var newRatNum = oldRatNum + 1;
+			var newRating = Math.round(oldRating * oldRatNum + rating / 2) / newRatNum;
+			newRating = newRating.toFixed(2);
+			var newContent = oldContent.replace(/(\<h5 id=.ratingResult. style=.display: .{4,6}; margin: 0 0 0 -9px; color: #9e0b0f.\>.*\<\/h5\>\<h5)/, '<h5 id="ratingResult" style="display: inline; margin: 0 0 0 -9px; color: #9e0b0f">' + newRating + ' (' + newRatNum + ')</h5><h5');
+			markers[0].content = newContent;
+			infos[0].setContent(newContent);
 			alert(output);
 		}
 	});

@@ -19,7 +19,7 @@ if (isset($_POST['contentId']) && !empty($_POST['contentId'])) {
 
     $lastid = mysqli_insert_id($con);
     
-    echo "rating added successful: " . $id . ", " . $rating;
+    echo "Thank you for voting!";
 
 }
 ?>
