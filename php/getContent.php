@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_array($result)) {
         $separator = "****";
     }
     $encodedString = $encodedString . $separator . "
-<div class='scrollFix';'><h2 style='margin:0 0 4px 0;'>" . $row[1] . "</h2><div style='height: 50px;'><img style='float: left' src='http://graph.facebook.com/" . $row[6] . "/picture'><h5 style='margin: 0; padding: 0px 0 0 55px; color: #6E7D85'> Posted : " . $row[5] . "</h5>" . "<h5 style='margin: 0; padding: 0 0 0 55px; color: #6E7D85'> 작성자 : " . $row[7] . "</h5>" . $star_rating . "<h5 id='ratingResult' style='display: inline; margin: 0 0 0 -9px; color: #9e0b0f'>" . $rating . " (" . $row[9] . ")" . "</h5><h5 id='ratingSubmit' style='display: none; margin: 0 0 0 -9px; color: #9e0b0f'>submit</h5></div></div><hr/>" . $img . "<p>" . $row[2] . "</p>&&&" . $row[3] . "&&&" . $row[4] . "&&&" . $rating;
+<div class='scrollFix';'><h2 style='margin:0 0 4px 0;'>" . $row[1] . "</h2><div style='display: block;'><img style='float: left' src='http://graph.facebook.com/" . $row[6] . "/picture'><h5 style='margin: 0; padding: 0px 0 0 55px; color: #6E7D85'> Posted : " . $row[5] . "</h5>" . "<h5 style='margin: 0; padding: 0 0 0 55px; color: #6E7D85'> 작성자 : " . $row[7] . "</h5>" . $star_rating . "<h5 id='ratingResult' style='display: inline; margin: 0 0 0 -9px; color: #9e0b0f'>" . $rating . " (" . $row[9] . ")" . "</h5><h5 id='ratingSubmit' style='display: none; margin: 0 0 0 -9px; color: #9e0b0f'>submit</h5></div></div><hr/>" . $img . "<p>" . $row[2] . "</p>&&&" . $row[3] . "&&&" . $row[4] . "&&&" . $rating;
     $y = $y + 1;
     //$row = mysqli_fetch_array($result);
 }
