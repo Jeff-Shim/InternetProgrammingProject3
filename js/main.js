@@ -738,7 +738,6 @@ function submitRate(id, rating) {
 		success : function(output) {
 			ratingSubmit.setAttribute("onclick", "");
 			ratingSubmit.style.display = 'none';
-			$(".rating").css("z-index", "6");
 			var oldContent = markers[0].content;
 			//var myRe = new RegExp('(\<h5 id="ratingResult" style="display: none; margin: 0 0 0 -9px; color: #9e0b0f"\>)',g);
 			var contentArr = oldContent.split(/(\<h5 id=.ratingResult. style=.display: .{4,6}; margin: 0 0 0 -9px; color: #9e0b0f.\>)/);
@@ -753,6 +752,8 @@ function submitRate(id, rating) {
 			var newContent = oldContent.replace(/(\<h5 id=.ratingResult. style=.display: .{4,6}; margin: 0 0 0 -9px; color: #9e0b0f.\>.*\<\/h5\>\<h5)/, '<h5 id="ratingResult" style="display: inline; margin: 0 0 0 -9px; color: #9e0b0f">' + newRating + ' (' + newRatNum + ')</h5><h5');
 			markers[0].content = newContent;
 			infos[0].setContent(newContent);
+			$('.rating-default').css('width', 2 * 8 * newRating);
+			$('.rating-default').css('z-index', 6);
 			alert(output);
 		}
 	});
