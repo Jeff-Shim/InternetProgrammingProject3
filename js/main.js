@@ -5,6 +5,7 @@ window.onload = loadScript;
  ***********************/
 var markers = [];
 var infos = [];
+var fbUserId;
 // global variable (currently open infowindow)
 function initialize() {
 	var myLatlng = new google.maps.LatLng(37.5637, 126.9365037);
@@ -424,8 +425,6 @@ function initialize() {
 
 			var Rating, ratingScore;
 
-			
-
 			for (var i = 0; i < limitOfX; i = i + 1) {
 				var addressDetails = [];
 				var marker;
@@ -435,16 +434,16 @@ function initialize() {
 				//Load the lat, long data
 				var lat = new google.maps.LatLng(addressDetails[1], addressDetails[2]);
 				/*
-				ratingScore = addressDetails[3] * 2;
-								if(0 <= ratingScore && ratingScore < 3) {
-									Rating = 0;
-								}
-								else if(3 <= ratingScore && ratingScore < 7){
-									Rating = 1;
-								}
-								else {
-									Rating = 2;
-								}*/
+				 ratingScore = addressDetails[3] * 2;
+				 if(0 <= ratingScore && ratingScore < 3) {
+				 Rating = 0;
+				 }
+				 else if(3 <= ratingScore && ratingScore < 7){
+				 Rating = 1;
+				 }
+				 else {
+				 Rating = 2;
+				 }*/
 				Rating = Math.round(addressDetails[3] * 2);
 				var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + PinColor(Rating), new google.maps.Size(21, 34), new google.maps.Point(0, 0), new google.maps.Point(10, 34));
 				//Create a new marker and info window
@@ -456,7 +455,7 @@ function initialize() {
 					content : addressDetails[0],
 					icon : pinImage
 				});
-				
+
 				oms.addMarker(marker);
 				//Pushing the markers into an array so that it's easier to manage them
 				markersArray.push(marker);
@@ -488,7 +487,6 @@ function initialize() {
 					infos.length = 0;
 				}
 			}
-
 
 			function PinColor(Rating) {
 				switch(Rating) {
@@ -705,6 +703,7 @@ function afterFBLogin() {
 		if (response) {
 			var image = document.getElementById('userImage');
 			image.src = 'http://graph.facebook.com/' + response.id + '/picture';
+			fbUserId = response.id;
 			/*
 			 var name = document.getElementById('name');
 			 name.innerHTML = response.name
@@ -720,26 +719,58 @@ function afterFBLogin() {
 
 // Rate function
 // show submit button and submits
+var doNotCheckTwice = [];
 function rate(id, rating) {
-	document.getElementById("ratingResult").style.display = 'none';
-	var ratingSubmit = document.getElementById("ratingSubmit");
-	ratingSubmit.style.display = 'inline';
-	ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + " );");
+	if (doNotCheckTwice[id] != true) {
+		var ratingSubmit = document.getElementById("ratingSubmit");
+		$.ajax({
+			url : '../php/didRate.php',
+			data : {
+				contentId : id,
+				user : fbUserId
+			},
+			type : 'post',
+			success : function(output) {
+				alert("output: " + output);
+				if (output == '1') {// already rated
+					ratingSubmit.setAttribute("onclick", "");
+					ratingSubmit.style.display = 'none';
+					var oldContent = markers[0].content;
+					var newContent = oldContent.replace(/(px;. class=.rating-default.\>\<\/div\>)/, 'px; z-index: 7\' class=\'rating-default\'></div>');
+					newContent = newContent.replace(/(\<div class=.rating-default-bg.\>\<\/div\>)/, '<div style="z-index: 6;" class="rating-default-bg"></div>');
+					newContent = newContent.replace(/(onclick=.rate\(.*?\).)/g, 'onclick="alert(\'You already voted this cast!\')"');
+					markers[0].content = newContent;
+					infos[0].setContent(newContent);
+					alert("You already voted this cast!");
+				} else {
+					alert("inside false");
+					document.getElementById("ratingResult").style.display = 'none';
+					ratingSubmit.style.display = 'inline';
+					ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + ", " + fbUserId + ");");
+				}
+			}
+		});
+		doNotCheckTwice[id] = true;
+	} else {
+		document.getElementById("ratingResult").style.display = 'none';
+		ratingSubmit.style.display = 'inline';
+		ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + ", " + fbUserId + ");");
+	}
 }
 
-function submitRate(id, rating) {
+function submitRate(id, rating, userid) {
 	$.ajax({
 		url : '../php/rate.php',
 		data : {
 			contentId : id,
-			contentRating : rating
+			contentRating : rating,
+			userId : userid
 		},
 		type : 'post',
 		success : function(output) {
 			ratingSubmit.setAttribute("onclick", "");
 			ratingSubmit.style.display = 'none';
 			var oldContent = markers[0].content;
-			//var myRe = new RegExp('(\<h5 id="ratingResult" style="display: none; margin: 0 0 0 -9px; color: #9e0b0f"\>)',g);
 			var contentArr = oldContent.split(/(\<h5 id=.ratingResult. style=.display: .{4,6}; margin: 0 0 0 -9px; color: #9e0b0f.\>)/);
 			contentArr = contentArr[2].split(' ');
 			var oldRating = parseFloat(contentArr[0]);
@@ -750,7 +781,7 @@ function submitRate(id, rating) {
 			var newRating = (oldRating * oldRatNum + rating / 2) / newRatNum;
 			newRating = newRating.toFixed(2);
 			var newContent = oldContent.replace(/(\<h5 id=.ratingResult. style=.display: .{4,6}; margin: 0 0 0 -9px; color: #9e0b0f.\>.*\<\/h5\>\<h5)/, '<h5 id="ratingResult" style="display: inline; margin: 0 0 0 -9px; color: #9e0b0f">' + newRating + ' (' + newRatNum + ')</h5><h5');
-			newContent = newContent.replace(/(\<div style=.width: .{1,6}px;. class=.rating-default.\>\<\/div\>)/, '<div style="width: '+ 2 * 8 * newRating +'px; z-index: 7;" class="rating-default"></div>');
+			newContent = newContent.replace(/(\<div style=.width: .{1,6}px;. class=.rating-default.\>\<\/div\>)/, '<div style="width: ' + 2 * 8 * newRating + 'px; z-index: 7;" class="rating-default"></div>');
 			newContent = newContent.replace(/(\<div class=.rating-default-bg.\>\<\/div\>)/, '<div style="z-index: 6;" class="rating-default-bg"></div>');
 			newContent = newContent.replace(/(onclick=.rate\(.*?\).)/g, 'onclick="alert(\'You already voted this cast!\')"');
 			markers[0].content = newContent;
