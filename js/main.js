@@ -483,7 +483,7 @@ function initialize() {
 			}
 			//Takes all the lat, longs in the bounds variable and autosizes the map
 			//map.fitBounds(bounds);
-
+			
 			//Manages the info windows
 			function closeInfos() {
 				if (infos.length > 0) {
@@ -631,9 +631,11 @@ function statusChangeCallback(response) {
 		// Logged into your app and Facebook.
 		afterFBLogin();
 	} else if (response.status === 'not_authorized') {
+		document.getElementById('signInButton').style.display = '';
 		// The person is logged into Facebook, but not your app.
 		//document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
 	} else {
+		document.getElementById('signInButton').style.display = '';
 		// The person is not logged into Facebook, so we're not sure if
 		// they are logged into this app or not.
 		//document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
@@ -675,7 +677,9 @@ window.fbAsyncInit = function() {
 	});
 
 	FB.Event.subscribe('auth.login', function(response) {
-		document.location.reload();
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
 	});
 
 };
@@ -719,7 +723,16 @@ function afterFBLogin() {
 
 	});
 	//var controlDiv = document.getElementById("controlDiv");
+}
 
+function FBSignOut() {
+	if (confirm('Are you sure you want to sign out of EyeCast and Facebook?')) {
+		FB.logout(function(response) {
+			location.reload();
+		});
+	} else {
+		// Do nothing!
+	}
 }
 
 // Rate function

@@ -14,13 +14,14 @@
 	<body>
 		<div id="map-canvas"></div>
 		<div id="controlDiv" style="display: none; padding: 15px; z-index: 0; position: absolute; right: 0px; top: 0px;">
-			<div id="signInButton" onclick="facebookLogin()" title="Click to sign in" style="background-color: rgb(66, 133, 244); border-style: solid; border-width: 0px; border-top-left-radius: 2pt; border-top-right-radius: 2pt; border-bottom-right-radius: 2pt; border-bottom-left-radius: 2pt; cursor: pointer; text-align: center;">
+			<div id="signInButton" onclick="facebookLogin()" title="Click to sign in" style="display: none; background-color: rgb(66, 133, 244); border-style: solid; border-width: 0px; border-top-left-radius: 2pt; border-top-right-radius: 2pt; border-bottom-right-radius: 2pt; border-bottom-left-radius: 2pt; cursor: pointer; text-align: center;">
 				<div id="signInText" style="font-family: Arial, sans-serif; font-size: 14px; color: white; padding: 7px 12px;">
 					<b>Sign in</b>
 				</div>
 			</div>
-
+			<a href="#" onclick="FBSignOut()" style="text-decoration: none !important;">
 			<img id="userImage"/>
+			</a>
 		</div>
 		<div style="width: 100%; position: absolute; bottom: 2em">
 			<a href="../cast/index.html" style="text-decoration: none !important;" target="_top">

@@ -69,7 +69,9 @@
 				});
 
 				FB.Event.subscribe('auth.login', function(response) {
-					document.location.reload();
+					FB.getLoginStatus(function(response) {
+						statusChangeCallback(response);
+					});
 				});
 
 			};
@@ -149,7 +151,8 @@
 					</div>
 				</div>
 				<div id='View_area' style='position:relative; border: 0px solid black;'></div>
-				<textarea id="element_1" name="content" class="element textarea large" placeholder="내용"></textarea>				
+				<textarea id="element_1" name="content" class="element textarea large" placeholder="내용"></textarea>								
+
 
 
 				<div class="lfloat">
