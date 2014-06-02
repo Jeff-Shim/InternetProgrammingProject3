@@ -1,3 +1,15 @@
+var mobileKeyWords = new Array('iPhone', 'iPod', 'BlackBerry', 'Android', 'Windows CE', 'LG', 'MOT', 'SAMSUNG', 'SonyEricsson');
+var itIsMobile = false;
+for (var word in mobileKeyWords) {
+	if (navigator.userAgent.match(mobileKeyWords[word]) != null) {
+		itIsMobile = true;
+		break;
+	}
+}
+if (!itIsMobile) {
+	parent.window.location.href = 'desktop.html';
+}
+
 window.onload = loadScript;
 
 /**********************
@@ -5,7 +17,7 @@ window.onload = loadScript;
  ***********************/
 var markers = [];
 var infos = [];
-var fbUserId;
+var fbUserId = 0;
 // global variable (currently open infowindow)
 function initialize() {
 	var myLatlng = new google.maps.LatLng(37.5637, 126.9365037);
@@ -720,40 +732,52 @@ function afterFBLogin() {
 // Rate function
 // show submit button and submits
 var doNotCheckTwice = [];
-function rate(id, rating) {
-	var ratingSubmit = document.getElementById("ratingSubmit");
-	if (doNotCheckTwice[id] != true) {
-		$.ajax({
-			url : '../php/didRate.php',
-			data : {
-				contentId : id,
-				user : fbUserId
-			},
-			type : 'post',
-			success : function(output) {
-				if (output == '1') {// already rated
-					ratingSubmit.setAttribute("onclick", "");
-					ratingSubmit.style.display = 'none';
-					var oldContent = markers[0].content;
-					var newContent = oldContent.replace(/(px;. class=.rating-default.\>\<\/div\>)/, 'px; z-index: 7\' class=\'rating-default\'></div>');
-					newContent = newContent.replace(/(\<div class=.rating-default-bg.\>\<\/div\>)/, '<div style="z-index: 6;" class="rating-default-bg"></div>');
-					newContent = newContent.replace(/(onclick=.rate\(.*?\).)/g, 'onclick="alert(\'You already voted this cast!\')"');
-					markers[0].content = newContent;
-					infos[0].setContent(newContent);
-					alert("You already voted this cast!");
+function rate(id, rating, writerId) {
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			FB.api('/me', function(response) {
+				if (response.id == writerId) {
+					alert("You cannot vote your cast!");
 				} else {
-					document.getElementById("ratingResult").style.display = 'none';
-					ratingSubmit.style.display = 'inline';
-					ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + ", " + fbUserId + ");");
+					var ratingSubmit = document.getElementById("ratingSubmit");
+					if (doNotCheckTwice[id] != true) {
+						$.ajax({
+							url : '../php/didRate.php',
+							data : {
+								contentId : id,
+								user : fbUserId
+							},
+							type : 'post',
+							success : function(output) {
+								if (output == '1') {// already rated
+									ratingSubmit.setAttribute("onclick", "");
+									ratingSubmit.style.display = 'none';
+									var oldContent = markers[0].content;
+									var newContent = oldContent.replace(/(px;. class=.rating-default.\>\<\/div\>)/, 'px; z-index: 7\' class=\'rating-default\'></div>');
+									newContent = newContent.replace(/(\<div class=.rating-default-bg.\>\<\/div\>)/, '<div style="z-index: 6;" class="rating-default-bg"></div>');
+									newContent = newContent.replace(/(onclick=.rate\(.*?\).)/g, 'onclick="alert(\'You already voted this cast!\')"');
+									markers[0].content = newContent;
+									infos[0].setContent(newContent);
+									alert("You already voted this cast!");
+								} else {
+									document.getElementById("ratingResult").style.display = 'none';
+									ratingSubmit.style.display = 'inline';
+									ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + ", " + response.id + ");");
+								}
+							}
+						});
+						doNotCheckTwice[id] = true;
+					} else {
+						document.getElementById("ratingResult").style.display = 'none';
+						ratingSubmit.style.display = 'inline';
+						ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + ", " + response.id + ");");
+					}
 				}
-			}
-		});
-		doNotCheckTwice[id] = true;
-	} else {
-		document.getElementById("ratingResult").style.display = 'none';
-		ratingSubmit.style.display = 'inline';
-		ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + ", " + fbUserId + ");");
-	}
+			});
+		} else {
+			alert("Sign in to rate casts!");
+		}
+	});
 }
 
 function submitRate(id, rating, userid) {
