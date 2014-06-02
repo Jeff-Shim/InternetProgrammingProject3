@@ -747,7 +747,7 @@ function submitRate(id, rating) {
 			contentArr = contentArr[1].split(')');
 			var oldRatNum = parseInt(contentArr[0]);
 			var newRatNum = oldRatNum + 1;
-			var newRating = Math.round(oldRating * oldRatNum + rating / 2) / newRatNum;
+			var newRating = (oldRating * oldRatNum + rating / 2) / newRatNum;
 			newRating = newRating.toFixed(2);
 			var newContent = oldContent.replace(/(\<h5 id=.ratingResult. style=.display: .{4,6}; margin: 0 0 0 -9px; color: #9e0b0f.\>.*\<\/h5\>\<h5)/, '<h5 id="ratingResult" style="display: inline; margin: 0 0 0 -9px; color: #9e0b0f">' + newRating + ' (' + newRatNum + ')</h5><h5');
 			newContent = newContent.replace(/(\<div style=.width: .{1,6}px;. class=.rating-default.\>\<\/div\>)/, '<div style="width: '+ 2 * 8 * newRating +'px; z-index: 7;" class="rating-default"></div>');
