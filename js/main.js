@@ -721,8 +721,8 @@ function afterFBLogin() {
 // show submit button and submits
 var doNotCheckTwice = [];
 function rate(id, rating) {
+	var ratingSubmit = document.getElementById("ratingSubmit");
 	if (doNotCheckTwice[id] != true) {
-		var ratingSubmit = document.getElementById("ratingSubmit");
 		$.ajax({
 			url : '../php/didRate.php',
 			data : {
@@ -731,7 +731,6 @@ function rate(id, rating) {
 			},
 			type : 'post',
 			success : function(output) {
-				alert("output: " + output);
 				if (output == '1') {// already rated
 					ratingSubmit.setAttribute("onclick", "");
 					ratingSubmit.style.display = 'none';
@@ -743,7 +742,6 @@ function rate(id, rating) {
 					infos[0].setContent(newContent);
 					alert("You already voted this cast!");
 				} else {
-					alert("inside false");
 					document.getElementById("ratingResult").style.display = 'none';
 					ratingSubmit.style.display = 'inline';
 					ratingSubmit.setAttribute("onclick", "submitRate(" + id + "," + rating + ", " + fbUserId + ");");
