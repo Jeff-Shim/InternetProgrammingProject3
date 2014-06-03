@@ -121,6 +121,8 @@
 								lat.value = position.coords.latitude;
 								var lng = document.getElementById('locationLng');
 								lng.value = position.coords.longitude;
+								document.getElementById('loadingLocation').style.display = 'none';
+								document.getElementById('saveForm').style.display = '';
 							});
 						}
 						var nameText = document.getElementById('userNameText');
@@ -159,18 +161,15 @@
 					</div>
 				</div>
 				<div id='View_area' style='position:relative; border: 0px solid black;'></div>
-				<textarea id="element_1" name="content" class="element textarea large" placeholder="내용"></textarea>												
-
-
-
-
+				<textarea id="element_1" name="content" class="element textarea large" placeholder="내용"></textarea>																
 				<div class="lfloat">
 					<label class="fileButton"> <img src="camera_blue.png" />
 						<input name="upload" accept="image/*" title="사진을 올려주세요" type="file" onchange="previewImage(this,'View_area')"/>
 					</label>
 				</div>
 				<div class="rfloat">
-					<input id="saveForm" type="submit" class="button" name="submit" value="Cast" />
+					<span id="loadingLocation" style="color:gray; position:relative; margin: 0; line-height: 36px;">Loading location...</span>
+					<input style="display: none;" id="saveForm" type="submit" class="button" name="submit" value="Cast" />
 				</div>
 				<span style="color:gray; position:relative; margin: 0; line-height: 43px;"> Upload Photo </span>
 				<input id='userID' type='hidden' name='userId' />
