@@ -8,22 +8,22 @@ We are building up a mobile mash-up site using geolocation and Open APIs.
 
 #### Topic: Local News written by general users.
 
-#### Site Title: EyeCast
+#### Site Title: (Project) EyeCast
 
 ## License
 
-EyeCast is an Open Source web application under the GNU General Public License.
+Project EyeCast is an Open Source web application under the GNU General Public License.
 
-This means everybody can download the source code and improve and modify it. The only thing we ask is that people submit their improvements and modifications back to us so that all WinMerge users may benefit.
+This means everybody can download the source code and improve and modify it. The only thing we ask is that people submit their improvements and modifications back to us so that all Project Eyecast users may benefit.
 
 ## GNU General Public License
 
-EyeCast is free software: you can redistribute it and/or modify
+Project EyeCast is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-EyeCast is distributed in the hope that it will be useful,
+Project EyeCast is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
