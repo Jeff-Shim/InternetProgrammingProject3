@@ -8,6 +8,7 @@ window.onload = loadScript;
 /**********************
  * Google Maps Scripts *
  ***********************/
+var currentLocation = null;
 var markers = [];
 var infos = [];
 var fbUserId = 0;
@@ -405,7 +406,6 @@ function initialize() {
 				content : 'Current Location'
 			});
 			oms.addMarker(marker);
-			markersArray.push(marker);
 			var infowindow = new google.maps.InfoWindow();
 			oms.addListener('click', function(marker, event) {
 				markers[0] = marker;
@@ -414,6 +414,10 @@ function initialize() {
 				infowindow.open(map, marker);
 				infos[0] = infowindow;
 			});
+
+			currentLocation = marker;
+
+			window.setInterval(updateLocation, 5000);
 
 			//Initialize a variable that the auto-size the map to whatever you are plotting
 			var bounds = new google.maps.LatLngBounds();
@@ -483,7 +487,17 @@ function initialize() {
 			}
 			//Takes all the lat, longs in the bounds variable and autosizes the map
 			//map.fitBounds(bounds);
-			
+
+			// update current location
+			function updateLocation() {
+				if (currentLocation != null) {
+					navigator.geolocation.getCurrentPosition(function(position) {
+						var currentLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+						currentLocation.setPosition(currentLatLng);
+					});
+				}
+			}
+
 			//Manages the info windows
 			function closeInfos() {
 				if (infos.length > 0) {
